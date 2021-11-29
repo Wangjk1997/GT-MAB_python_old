@@ -3,7 +3,7 @@ import serial
 import struct
 import numpy as np
 from pid import PID
-from utils.mixer import *
+from mixer import *
 from scipy.spatial.transform import Rotation as R
 from pi_zero_w_streaming.threaded_stream_rcv import ThreadedPiStream
 
