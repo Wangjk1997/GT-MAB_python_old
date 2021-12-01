@@ -20,11 +20,11 @@ def my_parse_args(arg_list, args_dict):
     return args_dict
 
 class Natnet_blimp:
-    def __init__(self):
+    def __init__(self, my_ip, server_ip):
         optionsDict = {}
-        optionsDict["clientAddress"] = "127.0.0.1"
-        optionsDict["serverAddress"] = "127.0.0.1"
-        optionsDict["use_multicast"] = True
+        optionsDict["clientAddress"] = my_ip
+        optionsDict["serverAddress"] = server_ip
+        optionsDict["use_multicast"] = False
         optionsDict = my_parse_args(sys.argv, optionsDict)
         # This will create a new NatNet client
         self.streaming_client = NatNetClient()

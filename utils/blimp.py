@@ -9,8 +9,8 @@ from pi_zero_w_streaming.threaded_stream_rcv import ThreadedPiStream
 from NatNetBlimp import Natnet_blimp
 
 class Blimp:
-    def __init__(self, port, stream_ip, logger=True):
-        self.stream_ip = stream_ip
+    def __init__(self, port, my_ip, pi_ip=None, opti_ip=None, logger=True):
+        self.pi_ip = pi_ip
         self.logger = logger
   
         # construct serial port
@@ -52,8 +52,10 @@ class Blimp:
         # setup input buffer to be sent out
         self.u = np.zeros(6)
 
-        # setup natnet client for optitrack system
-        self.NatNet = Natnet_blimp()
+        if opti_ip:
+            # setup natnet client for optitrack system
+            self.NatNet = Natnet_blimp(my_ip, opti_ip)
+            self.runNatNet()
 
         # setup sensing tools
         #self.pi = ThreadedPiStream(8485, 8486)
