@@ -6,6 +6,7 @@ from pid import PID
 from mixer import *
 from scipy.spatial.transform import Rotation as R
 from pi_zero_w_streaming.threaded_stream_rcv import ThreadedPiStream
+from NatNetBlimp import Natnet_blimp
 
 class Blimp:
     def __init__(self, port, stream_ip, logger=True):
@@ -50,6 +51,9 @@ class Blimp:
 
         # setup input buffer to be sent out
         self.u = np.zeros(6)
+
+        # setup natnet client for optitrack system
+        self.NatNet = Natnet_blimp()
 
         # setup sensing tools
         #self.pi = ThreadedPiStream(8485, 8486)
@@ -138,3 +142,16 @@ class Blimp:
     def save(self, fname):
         # save historical data if logger flag is active
         pass
+
+    def receive_rigid_body_frame(self, new_id, position, rotation ):
+        # callback funtion for optitrack system to get pose and position
+        pass
+
+    def runNatNet(self):
+        # start Optitrack
+        self.NatNet.streaming_client.rigid_body_listener = self.receive_rigid_body_frame
+        self.NatNet.streaming_client.run()
+    
+    def stopNatNet(self):
+        # stop Optitrack
+        self.NatNet.streaming_client.shutdown()
