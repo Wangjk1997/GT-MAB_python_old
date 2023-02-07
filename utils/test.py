@@ -3,7 +3,7 @@ import time
 
 class test:
     def __init__(self):
-        self.NN = Natnet_blimp()
+        self.NN = Natnet_blimp('127.0.0.1','127.0.0.1')
         self.position = list()
     
     def receive_rigid_body_frame(self, new_id, position, rotation ):
